@@ -63,6 +63,7 @@ input, select, textarea {
     color: #d3bb89;
     width: 500px;
     font-size: 20px;
+    border-radius: 5px;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -102,8 +103,8 @@ p {
     margin: 0;
 }
 
-button {
-    width: 200px;
+.button {
+    cursor: pointer;
 }
 
 input[type=checkbox] {
@@ -131,7 +132,7 @@ input[type=checkbox] {
 }
 
 .register__checkbox input[type="checkbox"]:checked + label::before {
-    font-size: 20px;
+    font-size: 1.5rem;
     content: '\2713';
     color: black;
 }
@@ -156,4 +157,12 @@ textarea {
 
 select {
     font-size: 15px;
+}
+
+.error {
+    background-color: darkred;
+}
+
+.personal {
+    display: none;
 }
