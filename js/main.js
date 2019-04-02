@@ -13,7 +13,6 @@ const HOUSES = {
 };
 
 const $register = $('.register');
-const fields = $('.register .register__field');
 const $email = $('#email');
 const $password = $('#password');
 const $username = $('#name');
@@ -46,12 +45,16 @@ $submitBtn.on('click', function () {
 $register.on('submit', function (e) {
     e.preventDefault();
 
-    for (let i = 0; i < fields.length; i++) {
-        if (!EMAIL_REG.test($email.val()) || $password.val().length < 8) {
-            fields[i].classList.add('error');
-        } else {
-            fields[i].classList.remove('error');
-        }
+    if (!EMAIL_REG.test($email.val())) {
+        $email.addClass('error');
+    } else {
+        $email.classList.remove('error');
+    }
+
+    if ($password.val().length < 8) {
+        $password.addClass('error');
+    } else {
+        $password.removeClass('error');
     }
 });
 
@@ -143,12 +146,12 @@ $username.on('input', function (e) {
 $house.on('input', function () {
    if ($house.val() === 'none') {
        $house.addClass('error');
-       $lightSlider.hide();
+       $lightSlider.css('opacity', '0');
    } else {
        isValidHouse = true;
        houseFocusOutDone = true;
        $house.removeClass('error');
-       $lightSlider.show();
+       $lightSlider.css('opacity', '1');
 
        let keysArr = Object.keys(HOUSES);
 
@@ -189,6 +192,7 @@ $(document).ready(function() {
 $('.left-main').append($('<ul>', {"id": 'lightSlider'}));
 
 let $lightSlider = $('#lightSlider');
+$lightSlider.css('opacity', '0');
 
 for (let key in HOUSES) {
     let imgPath = $('<img src="img/houses/' + HOUSES[key] + '">');
