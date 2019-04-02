@@ -1,19 +1,41 @@
-const EMAIL_REG = /^([\w]{2,50}@\w{2,50}\.([A-Za-z]{2,4}))$/;
+const EMAIL_REG = /^([\w]{2,50}@\w{2,50}\.([A-Za-z]{2,4}))$/;   
 
-let register = $('.register')[0];
-let fields = register.querySelectorAll('.register__field');
-let email = $('#email')[0];
-let password = $('#password')[0];
+const $register = $('.register');
+const fields = $('.register .register__field');
+const $email = $('#email');
+const $password = $('#password');
+const $username = $('#name');
+const $house = $('#house');
+const $preferences = $('#pref');
+    
+const $submitBtn = $('#submit');
+const $saveBtn = $('#save');
+
+let isValidEmail = false;
+let isValidPass = false;
+let isValidName = false;
+let isValidHouse = false;
+let isValidPreferences = false;
 
 let emailFocusOutDone = false;
 let passFocusOutDone = false;
+let usernameFocusOutDone = false;
+let houseFocusOutDone = false;
+let preferencesFocusOutDone = false;
+
+$submitBtn.on('click', function () {
+    if (isValidEmail && isValidPass) {
+        $register.addClass('right-main-hide');
+        $('.personal').removeClass('right-main-hide');
+    }
+});
 
 /* Controls and highlights email and password if its empty and submit press */
-register.addEventListener('submit', function (e) {
+$register.on('submit', function (e) {
     e.preventDefault();
 
     for (let i = 0; i < fields.length; i++) {
-        if (!EMAIL_REG.test(email.value) || password.value.length < 8) {
+        if (!EMAIL_REG.test($email.val()) || $password.val().length < 8) {
             fields[i].classList.add('error');
         } else {
             fields[i].classList.remove('error');
@@ -21,35 +43,109 @@ register.addEventListener('submit', function (e) {
     }
 });
 
-email.addEventListener('focusout', function (e) {
+$email.on('focusout', function (e) {
     e.preventDefault();
-    emailFocusOutDone = true;
-    email.classList.add('error');
+
+    if (!emailFocusOutDone) {
+        $email.addClass('error');
+        emailFocusOutDone = true;
+    }
 });
 
-password.addEventListener('focusout', function (e) {
+$password.on('focusout', function (e) {
    e.preventDefault();
-   passFocusOutDone = true;
-    password.classList.add('error');
+
+   if (!passFocusOutDone) {
+       $password.addClass('error');
+       passFocusOutDone = true;
+   }
 });
 
-email.addEventListener('input', function (e) {
+$email.on('input', function (e) {
     e.preventDefault();
 
-    if (!EMAIL_REG.test(email.value) && emailFocusOutDone) {
-        email.classList.add('error');
-    } else {
-        email.classList.remove('error');
-        console.log('remove');
+    if (!EMAIL_REG.test($email.val()) && emailFocusOutDone) {
+        $email.addClass('error');
+    } else if (EMAIL_REG.test($email.val())) {
+        isValidEmail = true;
+        emailFocusOutDone = true;
+        $email.removeClass('error');
     }
 });
 
-password.addEventListener('input', function (e) {
+$password.on('input', function (e) {
     e.preventDefault();
 
-    if (password.value.length < 8 && passFocusOutDone) {
-        password.classList.add('error');
-    } else {
-        password.classList.remove('error');
+    if ($password[0].value.length < 8 && passFocusOutDone) {
+        $password.addClass('error');
+    } else if ($password.val().length >= 8) {
+        isValidPass = true;
+        passFocusOutDone = true;
+        $password.removeClass(  'error');
     }
+});
+
+$saveBtn.on('click', function (e) {
+    e.preventDefault();
+});
+
+$username.on('focusout', function (e) {
+    e.preventDefault();
+
+    if (!usernameFocusOutDone) {
+       usernameFocusOutDone = true;
+       $username.addClass('error');
+    }
+});
+
+$house.on('focusout', function (e) {
+    e.preventDefault();
+
+    if (!houseFocusOutDone) {
+        houseFocusOutDone = true;
+        $house.addClass('error');
+    }
+});
+
+$preferences.on('focusout', function (e) {
+    e.preventDefault();
+
+    if ((!preferencesFocusOutDone)) {
+        preferencesFocusOutDone = true;
+        $preferences.addClass('error');
+    }
+});
+
+$username.on('input', function (e) {
+   e.preventDefault();
+
+   if (!/\w{3,}/.test($username.val()) && usernameFocusOutDone) {
+       $username.addClass('error');
+   } else if (/\w{3,}/.test($username.val())) {
+       isValidName = true;
+       usernameFocusOutDone = true;
+       $username.removeClass('error');
+   }
+});
+
+$house.on('input', function () {
+   if ($house.val() === 'none') {
+       $house.addClass('error');
+   } else {
+       isValidHouse = true;
+       houseFocusOutDone = true;
+       $house.removeClass('error');
+   }
+});
+
+$preferences.on('input', function (e) {
+   e.preventDefault();
+
+   if (!/\w{3,}/.test($preferences.val()) && preferencesFocusOutDone) {
+       $preferences.addClass('error');
+   } else if (/\w{3,}/.test($preferences.val())) {
+       isValidPreferences = true;
+       preferencesFocusOutDone = true;
+       $preferences.removeClass('error');
+   }
 });
