@@ -189,7 +189,6 @@ $(document).ready(function() {
 $('.left-main').append($('<ul>', {"id": 'lightSlider'}));
 
 let $lightSlider = $('#lightSlider');
-$lightSlider.hide();
 
 for (let key in HOUSES) {
     let imgPath = $('<img src="img/houses/' + HOUSES[key] + '">');
