@@ -1,4 +1,16 @@
-const EMAIL_REG = /^([\w]{2,50}@\w{2,50}\.([A-Za-z]{2,4}))$/;   
+const EMAIL_REG = /^([\w]{2,50}@\w{2,50}\.([A-Za-z]{2,4}))$/;
+
+const HOUSES = {
+    'Arryn': 'arryn.jpg',
+    'Baratheon': 'baratheon.jpg',
+    'Greyjoy': 'greyjoy.jpg',
+    'Lannister': 'lannister.jpg',
+    'Martell': 'martell.jpg',
+    'Stark': 'stark.jpg',
+    'Targaryen': 'targaryen.jpg',
+    'Tully': 'tully.jpg',
+    'Tyrell': 'tyrell.jpg'
+};
 
 const $register = $('.register');
 const fields = $('.register .register__field');
@@ -25,8 +37,8 @@ let preferencesFocusOutDone = false;
 
 $submitBtn.on('click', function () {
     if (isValidEmail && isValidPass) {
-        $register.addClass('right-main-hide');
-        $('.personal').removeClass('right-main-hide');
+        $register.addClass('main-hide');
+        $('.personal').removeClass('main-hide');
     }
 });
 
@@ -131,10 +143,20 @@ $username.on('input', function (e) {
 $house.on('input', function () {
    if ($house.val() === 'none') {
        $house.addClass('error');
+       $lightSlider.hide();
    } else {
        isValidHouse = true;
        houseFocusOutDone = true;
        $house.removeClass('error');
+       $lightSlider.show();
+
+       let keysArr = Object.keys(HOUSES);
+
+       for (let i = 0; i < keysArr.length; i++) {
+           if ($house.val() === keysArr[i]) {
+               slider.goToSlide(i);
+           }
+       }
    }
 });
 
@@ -149,3 +171,27 @@ $preferences.on('input', function (e) {
        $preferences.removeClass('error');
    }
 });
+
+let slider;
+
+$(document).ready(function() {
+    slider = $("#lightSlider").lightSlider({
+        item: 1,
+        autoWidth: false,
+        slideMove: 1, // slidemove will be 1 if loop is true
+        slideMargin: 10,
+        pager: false,
+        controls: false,
+        enableDrag: false
+    });
+});
+
+$('.left-main').append($('<ul>', {"id": 'lightSlider'}));
+
+let $lightSlider = $('#lightSlider');
+$lightSlider.hide();
+
+for (let key in HOUSES) {
+    let imgPath = $('<img src="img/houses/' + HOUSES[key] + '">');
+    $lightSlider.append($('<li>').append(imgPath));
+}

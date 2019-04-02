@@ -163,6 +163,12 @@ select {
     background-color: darkred;
 }
 
-.right-main-hide {
+.main-hide {
     display: none;
+}
+
+.left-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
