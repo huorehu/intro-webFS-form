@@ -25,9 +25,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0 38px 0 10px;
-  font-size: 12px;
+  font-size: 20px;
   line-height: 38px;
-  color: #444;
+  color: #d3bb89;
   height: 38px;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -86,7 +86,11 @@
 }
 
 .selectric-open .selectric {
-  border-color: #c4c4c4;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom-color: #d3bb89;
+  border-radius: 5px;
 }
 
 .selectric-open .selectric-items {
@@ -186,7 +190,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 12px;
+  font-size: 20px;
   line-height: 20px;
   min-height: 20px;
 }
@@ -244,4 +248,12 @@
 
 .selectric-items .selectric-group li {
   padding-left: 25px;
+}
+
+div.selectric {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: solid 2px #d3bb89;
+  border-radius: 5px;
 }
