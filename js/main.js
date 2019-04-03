@@ -48,7 +48,7 @@ $register.on('submit', function (e) {
     if (!EMAIL_REG.test($email.val())) {
         $email.addClass('error');
     } else {
-        $email.classList.remove('error');
+        $email.removeClass('error');
     }
 
     if ($password.val().length < 8) {
@@ -198,3 +198,27 @@ for (let key in HOUSES) {
     let imgPath = $('<img src="img/houses/' + HOUSES[key] + '">');
     $lightSlider.append($('<li>').append(imgPath));
 }
+
+$(document).ready(function() {
+    $('select').selectric({
+        onChange: function (e) {
+            if ($house.val() === 'none') {
+                $house.addClass('error');
+                $lightSlider.css('opacity', '0');
+            } else {
+                isValidHouse = true;
+                houseFocusOutDone = true;
+                $house.removeClass('error');
+                $lightSlider.css('opacity', 1);
+
+                let keysArr = Object.keys(HOUSES);
+
+                for (let i = 0; i < keysArr.length; i++) {
+                    if ($house.val() === keysArr[i]) {
+                        slider.goToSlide(i);
+                    }
+                }
+            }
+        }
+    });
+});
