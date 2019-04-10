@@ -20,5 +20,4 @@ class Error
     {
         $this->errors[$name] = $message;
     }
-
 }

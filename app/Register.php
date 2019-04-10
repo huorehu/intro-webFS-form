@@ -29,7 +29,7 @@ class Register
         if (!$this->isUsernameExists($username)) {
             return $this->addUserData($email, $username, $house, $preferences);
         } else {
-            $this->error['username-error'] = 'User with name ' . $username . ' already exists';
+            $this->error['username-err'] = 'User with name ' . $username . ' already exists';
         }
     }
 
@@ -39,16 +39,12 @@ class Register
     }
 
     private function isUsernameExists($username) {
-        $tmp = array_search($this->getListValues('username'), $username) === true;
-        return $tmp;
+        return array_search($this->getListValues('username'), $username) === true;
     }
 
     private function getListValues($value)
     {
-        $userData = json_decode(file_get_contents($this->usersDataPath), true);
-        $tmpFirst = array_values($userData);
-        $tmp = array_column(array_values(json_decode(file_get_contents($this->usersDataPath))), $value);
-        return $tmp;
+        return array_column(array_values(json_decode(file_get_contents($this->usersDataPath), true)), $value);
     }
 
     private function addUserToList($email, $password)
@@ -59,14 +55,13 @@ class Register
     }
 
     private function isValidPassword($email, $password) {
-        $arrayData = json_decode(file_get_contents($this->usersDataPath), true);
-        $isAuthorized = $arrayData[$email]['password'] === $password;
+        $isAuthorized = json_decode(file_get_contents($this->usersDataPath), true)[$email]['password'] === $password;
 
         if ($isAuthorized) {
             return true;
         }
 
-        $this->error->setError('authorize-error', 'Email and password not match');
+        $this->error->setError('authorize-err', 'Email and password don\'t match');
 
         return false;
     }

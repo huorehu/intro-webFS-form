@@ -166,6 +166,10 @@ select {
     background-color: darkred;
 }
 
+.error-msg {
+    color: darkred;
+}
+
 .main-hide {
     display: none;
 }

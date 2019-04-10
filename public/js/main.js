@@ -35,16 +35,16 @@ let houseFocusOutDone = false;
 let preferencesFocusOutDone = false;
 
 $submitBtn.on('click', function () {
-    if (/*isValidEmail && isValidPass*/true) {
+    if (isValidEmail && isValidPass) {
         $register.submit();
     }
 });
 
 /* Controls and highlights email and password if its empty and submit press */
 $register.on('submit', function (e) {
-    // if (!isValidEmail || !isValidPass) {
-    //     e.preventDefault();
-    // }
+    if (!isValidEmail || !isValidPass) {
+        e.preventDefault();
+    }
 
     if (!EMAIL_REG.test($email.val())) {
         $email.addClass('error');
@@ -104,7 +104,7 @@ $password.on('input', function (e) {
 });
 
 $saveBtn.on('click', function (e) {
-    // e.preventDefault();
+
 });
 
 $username.on('focusout', function (e) {
@@ -169,9 +169,9 @@ $house.on('input', function () {
 $preferences.on('input', function (e) {
    e.preventDefault();
 
-   if (!/\w{10,}/.test($preferences.val()) && preferencesFocusOutDone) {
+   if (!/\w{8,}/.test($preferences.val()) && preferencesFocusOutDone) {
        $preferences.addClass('error');
-   } else if (/\w{10,}/.test($preferences.val())) {
+   } else if (/\w{8,}/.test($preferences.val())) {
        isValidPreferences = true;
        preferencesFocusOutDone = true;
        $preferences.removeClass('error');
