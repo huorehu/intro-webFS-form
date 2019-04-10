@@ -13,7 +13,7 @@
 
 .selectric {
   border: 1px solid #DDD;
-  border-radius: 0px;
+  border-radius: 0;
   position: relative;
   overflow: hidden;
   background-color: transparent;

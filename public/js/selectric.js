@@ -19,15 +19,15 @@
   /* global define */
   /* istanbul ignore next */
   if ( typeof define === 'function' && define.amd ) {
-    define(['jquery'], factory);
+    define(['public/js/jquery'], factory);
   } else if ( typeof module === 'object' && module.exports ) {
     // Node/CommonJS
     module.exports = function( root, jQuery ) {
       if ( jQuery === undefined ) {
         if ( typeof window !== 'undefined' ) {
-          jQuery = require('jquery');
+          jQuery = require('public/js/jquery');
         } else {
-          jQuery = require('jquery')(root);
+          jQuery = require('public/js/jquery')(root);
         }
       }
       factory(jQuery);

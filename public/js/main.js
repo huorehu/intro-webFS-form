@@ -1,4 +1,4 @@
-const EMAIL_REG = /^([\w]{2,50}@\w{2,50}\.([A-Za-z]{2,4}))$/;
+const EMAIL_REG = /^(\w{2,50}@\w{2,50}\.([A-Za-z]{2,4}))$/;
 
 const HOUSES = {
     'Arryn': 'arryn.jpg',
@@ -35,15 +35,16 @@ let houseFocusOutDone = false;
 let preferencesFocusOutDone = false;
 
 $submitBtn.on('click', function () {
-    if (isValidEmail && isValidPass) {
-        $register.addClass('main-hide');
-        $('.personal').removeClass('main-hide');
+    if (/*isValidEmail && isValidPass*/true) {
+        $register.submit();
     }
 });
 
 /* Controls and highlights email and password if its empty and submit press */
 $register.on('submit', function (e) {
-    e.preventDefault();
+    // if (!isValidEmail || !isValidPass) {
+    //     e.preventDefault();
+    // }
 
     if (!EMAIL_REG.test($email.val())) {
         $email.addClass('error');
@@ -81,6 +82,7 @@ $email.on('input', function (e) {
 
     if (!EMAIL_REG.test($email.val()) && emailFocusOutDone) {
         $email.addClass('error');
+        isValidEmail = false;
     } else if (EMAIL_REG.test($email.val())) {
         isValidEmail = true;
         emailFocusOutDone = true;
@@ -93,6 +95,7 @@ $password.on('input', function (e) {
 
     if ($password[0].value.length < 8 && passFocusOutDone) {
         $password.addClass('error');
+        isValidPass = false;
     } else if ($password.val().length >= 8) {
         isValidPass = true;
         passFocusOutDone = true;
@@ -101,7 +104,7 @@ $password.on('input', function (e) {
 });
 
 $saveBtn.on('click', function (e) {
-    e.preventDefault();
+    // e.preventDefault();
 });
 
 $username.on('focusout', function (e) {
@@ -166,9 +169,9 @@ $house.on('input', function () {
 $preferences.on('input', function (e) {
    e.preventDefault();
 
-   if (!/\w{3,}/.test($preferences.val()) && preferencesFocusOutDone) {
+   if (!/\w{10,}/.test($preferences.val()) && preferencesFocusOutDone) {
        $preferences.addClass('error');
-   } else if (/\w{3,}/.test($preferences.val())) {
+   } else if (/\w{10,}/.test($preferences.val())) {
        isValidPreferences = true;
        preferencesFocusOutDone = true;
        $preferences.removeClass('error');
@@ -201,10 +204,10 @@ for (let key in HOUSES) {
 
 $(document).ready(function() {
     $('select').selectric({
-        onChange: function (e) {
+        onChange: function () {
             if ($house.val() === 'none') {
                 $house.addClass('error');
-                $lightSlider.css('opacity', '0');
+                $lightSlider.css('opacity', 0);
             } else {
                 isValidHouse = true;
                 houseFocusOutDone = true;
