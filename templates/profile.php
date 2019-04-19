@@ -2,7 +2,7 @@
 session_start();
 ?>
 
-<form method="post" action="handler.php" class="personal">
+<form id="personal-info" class="personal">
     <input type="hidden" name="form-name" value="profile">
     <div class="personal__greeting">
         <p>You've successfully joined the game.</p>

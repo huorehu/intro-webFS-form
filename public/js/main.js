@@ -18,6 +18,7 @@ const $password = $('#password');
 const $username = $('#name');
 const $house = $('#house');
 const $preferences = $('#pref');
+const $personalInfo = $('#personal-info');
     
 const $submitBtn = $('#submit');
 const $saveBtn = $('#save');
@@ -104,7 +105,32 @@ $password.on('input', function (e) {
 });
 
 $saveBtn.on('click', function (e) {
+    e.preventDefault();
 
+    if (isValidName && isValidHouse && isValidPreferences) {
+        $personalInfo.submit();
+    }
+});
+
+$personalInfo.on('submit', (e) => {
+    e.preventDefault();
+
+    if (!isValidName || !isValidHouse || !isValidPreferences) {
+        return;
+    }
+
+    $.ajax({
+        method: 'POST',
+        url: 'handler.php',
+        data: {
+            'form-name': 'profile',
+            name: $username.val(),
+            house: $house.val(),
+            preferences: $preferences.val()
+        }
+    }).done(() => {
+        location.reload();
+    });
 });
 
 $username.on('focusout', function (e) {
