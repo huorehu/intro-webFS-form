@@ -20,7 +20,7 @@ session_start();
     <div class="right-main">
         <h1>GAME OF THRONES</h1>
         <?php
-        $TEMPLATES_PATH = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+        $TEMPLATES_PATH = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'resources' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
 
         if (isset($_SESSION['new-user'])):
             require_once $TEMPLATES_PATH . 'profile.php';

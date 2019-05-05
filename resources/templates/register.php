@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 if (isset($_SESSION['authorize-err'])): ?>
     <p class="error-msg"><?php echo $_SESSION['authorize-err'] ?></p>

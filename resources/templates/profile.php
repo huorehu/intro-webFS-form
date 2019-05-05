@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <form id="personal-info" class="personal">
     <input type="hidden" name="form-name" value="profile">
     <div class="personal__greeting">
